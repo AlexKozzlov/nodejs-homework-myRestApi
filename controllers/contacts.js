@@ -16,9 +16,9 @@ const listContacts = async (req, res, next) => {
   }
 };
 
-const getContactById = (req, res, next) => {
+const getContactById = async (req, res, next) => {
   try {
-    const contact = contactsService.getContactById(req.params);
+    const contact = await contactsService.getContactById(req.params);
     if (contact) {
       return res.status(HttpCode.OK).json({
         status: 'success',

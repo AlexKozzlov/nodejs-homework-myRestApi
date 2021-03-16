@@ -6,7 +6,7 @@ const adapter = new FileSync(
   path.join(__dirname, '..', 'data', 'contacts.json')
 );
 console.log(path.join(__dirname, '..', 'data', 'contacts.json'));
-// const adapter = new FileSync('contacts.json');
+
 const db = low(adapter);
 
 db.defaults({ contacts: [] }).write();

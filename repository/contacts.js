@@ -2,13 +2,13 @@ const { v4: uuid } = require('uuid');
 const db = require('../db');
 
 class ContactsRepository {
-  //   constructor() {}
   listContacts() {
     return db.get('contacts').value();
   }
 
   getContactById(id) {
-    return db.get('contacts').find({ id }).value();
+    const dbres = db.get('contacts').find({ id: id }).value();
+    return dbres;
   }
 
   addContact(body) {
@@ -23,12 +23,16 @@ class ContactsRepository {
   }
 
   removeContact(contactId) {
-    const [record] = db.get('contacts').remove({ contactId }).write();
+    const [record] = db.get('contacts').remove({ id: contactId }).write();
     return record;
   }
 
   updateContact(contactId, body) {
-    const record = db.get('contacts').find({ contactId }).assign(body).value();
+    const record = db
+      .get('contacts')
+      .find({ id: contactId })
+      .assign(body)
+      .value();
     db.write();
     return record.id ? record : null;
   }
