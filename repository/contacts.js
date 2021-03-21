@@ -1,8 +1,10 @@
-const Contact = require('../shemas/contacts');
+// const ContactModel = require('../model/contactModel');
+
+const ContactModel = require('../model/contactModel');
 
 class ContactsRepository {
   constructor() {
-    this.model = Contact;
+    this.model = ContactModel;
   }
 
   async listContacts() {

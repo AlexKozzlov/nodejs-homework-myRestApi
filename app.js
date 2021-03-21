@@ -4,6 +4,7 @@ const cors = require('cors');
 const { HttpCode } = require('./helpers/constants');
 
 const contactsRouter = require('./routes/api/contacts');
+const usersRouter = require('./routes/api/users');
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/users', usersRouter);
 app.use('/api/contacts', contactsRouter);
 
 app.use((req, res, next) => {
@@ -28,7 +30,7 @@ app.use((err, req, res, next) => {
   res.status(err.status).json({
     status: err.status === 500 ? 'fail' : 'error',
     code: err.status,
-    massage: err.massage,
+    massage: err.message,
     data: err.status === 500 ? 'Internal Server Errpr' : err.data,
   });
 });

@@ -1,5 +1,8 @@
 const express = require('express');
+
 const controllerContacts = require('../../controllers/contacts');
+const guard = require('../../helpers/guard');
+
 const {
   validateCreateContact,
   validateUpdateContact,
@@ -8,12 +11,14 @@ const {
 const router = express.Router();
 
 router
-  .get('/', controllerContacts.listContacts)
-  .get('/:contactId', controllerContacts.getContactById)
-  .post('/', validateCreateContact, controllerContacts.addContact)
-  .delete('/:contactId', controllerContacts.removeContact)
+  .get('/', guard, controllerContacts.listContacts)
+  .get('/:contactId', guard, controllerContacts.getContactById)
+  .post('/', guard, validateCreateContact, controllerContacts.addContact)
+  // .post('/', controllerContacts.addContact)
+  .delete('/:contactId', guard, controllerContacts.removeContact)
   .patch(
     '/:contactId',
+    guard,
     validateUpdateContact,
     controllerContacts.updateContact
   );
