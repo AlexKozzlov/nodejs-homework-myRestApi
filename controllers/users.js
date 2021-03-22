@@ -46,11 +46,6 @@ const login = async (req, res, next) => {
         code: HttpCode.OK,
         data: {
           token,
-          // user: {
-          //   id: newUser.id,
-          //   email: newUser.email,
-          //   subscription: newUser.subscription,
-          // },
         },
       });
     }
@@ -62,7 +57,11 @@ const login = async (req, res, next) => {
     next(e);
   }
 };
-const logout = async (req, res, next) => {};
+const logout = async (req, res, next) => {
+  const id = req.user.id;
+  await servisAuth.logout(id);
+  return res.status(HttpCode.NO_CONTENT).json();
+};
 
 module.exports = {
   reg,

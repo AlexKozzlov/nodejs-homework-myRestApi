@@ -21,6 +21,7 @@ class AuthService {
 
   async logout(id) {
     const data = await this.repository.users.updateToken(id, null);
+
     return data;
   }
 }
