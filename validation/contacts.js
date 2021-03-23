@@ -2,7 +2,7 @@ const Joi = require('joi');
 const { HttpCode } = require('../helpers/constants');
 
 const shemaCreateContact = Joi.object({
-  name: Joi.string().min(2).max(50).required(),
+  name: Joi.string().alphanum().min(3).max(30).required(),
   email: Joi.string()
     .email({
       minDomainSegments: 2,
@@ -32,10 +32,10 @@ const validate = (shema, body, next) => {
 
   if (error) {
     const [{ message }] = error.details;
-    console.log(message);
+
     return next({
       status: HttpCode.BAD_REQUEST,
-      message: `Filed: ${message}`,
+      message: `Filed: ${message.replace(/"/g, '')}`,
       data: 'Bad Request',
     });
   }
