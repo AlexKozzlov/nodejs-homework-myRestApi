@@ -1,14 +1,28 @@
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const { ErrorHandler } = require('./helpers/errorHandler');
+const { apiLimit } = require('./config/rate-limit.json');
 const { HttpCode } = require('./helpers/constants');
 
 const contactsRouter = require('./routes/api/contacts');
 const usersRouter = require('./routes/api/users');
 
-const app = express();
+const app = express({ limit: 10000 });
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
+
+const limiter = rateLimit({
+  ...apiLimit,
+  handler: (req, res, next) => {
+    next(new ErrorHandler(HttpCode.BAD_REQUEST, 'API access limit exceeded'));
+  },
+});
+app.use(helmet());
+
+app.use(limiter);
 
 app.use(logger(formatsLogger));
 app.use(cors());

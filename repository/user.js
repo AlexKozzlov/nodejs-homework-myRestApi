@@ -1,4 +1,4 @@
-const UserModel = require('../model/userModel');
+const UserModel = require('../shemas/user');
 
 class UserRepository {
   constructor() {

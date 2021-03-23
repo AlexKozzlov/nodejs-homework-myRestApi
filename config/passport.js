@@ -26,7 +26,6 @@ passport.use(
       }
       return done(null, user);
     } catch (e) {
-      console.log('object');
       done(e);
     }
   })

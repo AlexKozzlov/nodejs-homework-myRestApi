@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const { Schema, SchemaTypes } = mongoose;
 
 const contactShema = new Schema(
@@ -21,21 +22,8 @@ const contactShema = new Schema(
       min: 6,
       max: 25,
     },
-    // subscription: {
-    //   type: String,
-    //   default: 'free',
-    // },
-    // password: {
-    //   type: String,
-    //   min: 6,
-    //   max: 50,
-    //   unique: true,
-    // },
-    // token: {
-    //   type: String,
-    //   unique: true,
-    // },
-    owner: {
+
+    user: {
       type: SchemaTypes.ObjectId,
       ref: 'user',
     },
@@ -43,4 +31,9 @@ const contactShema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-module.exports = contactShema;
+// module.exports = contactShema;
+contactShema.plugin(mongoosePaginate);
+const ContactModel = mongoose.model('contact', contactShema);
+ContactModel.paginate().then({}); // Usage
+
+module.exports = ContactModel;
