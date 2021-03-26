@@ -10,7 +10,10 @@ const shemaCreateContact = Joi.object({
     })
     .optional(),
 
-  phone: Joi.number().required(),
+  phone: Joi.string().required(),
+  // subscription: Joi.string().required(),
+  // password: Joi.string().min(6).max(50).required(),
+  // token: [Joi.string(), Joi.number(), Joi.optional()],
 });
 
 const shemaUpdateContact = Joi.object({

@@ -1,0 +1,6 @@
+{
+  "apiLimit": {
+    "windowMs": 90000,
+    "max": 100
+  }
+}
