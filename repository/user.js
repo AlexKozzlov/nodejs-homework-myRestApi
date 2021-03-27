@@ -7,7 +7,6 @@ class UserRepository {
 
   async findUserById(id) {
     return await this.Model.findById(id);
-    // return await this.Model.findOne({ _id: id });
   }
 
   async findUserByEmail(email) {
@@ -23,6 +22,15 @@ class UserRepository {
     await this.Model.updateOne({ _id: id }, { token });
 
     return { message: 'Not authorized' };
+  }
+
+  async updateAvatar(id, avatar, idCloudeAvatar) {
+    await this.Model.updateOne({ _id: id }, { avatar, idCloudeAvatar });
+  }
+
+  async getAvatar(id) {
+    const { avatar, idCloudeAvatar } = await this.Model.findOne({ _id: id });
+    return { avatar, idCloudeAvatar };
   }
 }
 

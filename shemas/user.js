@@ -22,6 +22,10 @@ const userSchema = new Schema({
       return gravatar.url(this.email, { s: '250' }, true);
     },
   },
+  idCloudeAvatar: {
+    type: String,
+    default: null,
+  },
   subscription: {
     type: String,
     enum: [...Object.values(Subscription)],
@@ -47,8 +51,6 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.validPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
-
-// module.exports = userSchema;
 
 const UserModel = mongoose.model('user', userSchema);
 module.exports = UserModel;

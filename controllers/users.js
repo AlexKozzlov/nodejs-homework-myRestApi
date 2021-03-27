@@ -62,11 +62,24 @@ const login = async (req, res, next) => {
 const logout = async (req, res, next) => {
   const id = req.user.id;
   await servisAuth.logout(id);
-  return res.status(HttpCode.NO_CONTENT).json();
+  return res
+    .status(HttpCode.NO_CONTENT)
+    .json({ status: 'success', code: HttpCode.NO_CONTENT });
+};
+
+const avatars = async (req, res, next) => {
+  const { id } = req.user;
+  const pathFile = req.file.path;
+
+  const url = await servisUser.updateAvatar(id, pathFile);
+  return res
+    .status(HttpCode.OK)
+    .json({ status: 'success', code: HttpCode.OK, avatarURL: url });
 };
 
 module.exports = {
   reg,
   login,
   logout,
+  avatars,
 };
