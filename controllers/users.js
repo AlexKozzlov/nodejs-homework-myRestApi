@@ -21,6 +21,7 @@ const reg = async (req, res, next) => {
       email,
       password,
       subscription,
+      // avatarURL,
     });
     return res.status(HttpCode.CREATED).json({
       status: 'success',
@@ -29,6 +30,7 @@ const reg = async (req, res, next) => {
         id: newUser.id,
         email: newUser.email,
         subscription: newUser.subscription,
+        avatar: newUser.avatarURL,
       },
     });
   } catch (e) {
