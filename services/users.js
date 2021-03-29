@@ -25,6 +25,7 @@ class UserService {
     try {
       await this.emailServise.sendEmail(verifyToken, email, name);
     } catch (e) {
+      console.log(`e`, e.response.body);
       throw new ErrorHandler(503, e.message, 'Servise unavailable');
     }
 
@@ -72,7 +73,7 @@ class UserService {
     return data;
   }
 
-  async verify({ toket }) {
+  async verify({ token }) {
     const user = await this.repositories.users.findByFild({
       verifyToken: token,
     });

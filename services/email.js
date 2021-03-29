@@ -34,7 +34,6 @@ class EmailServise {
   }
   async sendEmail(verifyToken, email, name) {
     const emailBody = this.#createTemplate(verifyToken, name);
-
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
     const msg = {
