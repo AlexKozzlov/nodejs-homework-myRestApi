@@ -25,7 +25,7 @@ class ContactsRepository {
         },
       }
     );
-    // console.log(`result`, result);
+
     return result;
   }
 
@@ -53,5 +53,5 @@ class ContactsRepository {
     return resuilt;
   }
 }
-// new ContactsRepository.updateAllContacts()
+
 module.exports = ContactsRepository;

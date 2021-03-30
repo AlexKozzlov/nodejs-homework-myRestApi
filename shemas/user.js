@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const SALT_FACTOR = 8;
 const { Subscription } = require('../helpers/constants');
 const { Schema } = mongoose;
+const gravatar = require('gravatar');
 
 const userSchema = new Schema({
   email: {
@@ -15,6 +16,16 @@ const userSchema = new Schema({
     ],
   },
   password: { type: String, require: [true, 'Password mast be requaired'] },
+  avatarURL: {
+    type: String,
+    default: function () {
+      return gravatar.url(this.email, { s: '250' }, true);
+    },
+  },
+  idCloudeAvatar: {
+    type: String,
+    default: null,
+  },
   subscription: {
     type: String,
     enum: [...Object.values(Subscription)],
@@ -40,8 +51,6 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.validPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
-
-// module.exports = userSchema;
 
 const UserModel = mongoose.model('user', userSchema);
 module.exports = UserModel;
