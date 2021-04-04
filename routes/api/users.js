@@ -9,6 +9,8 @@ const router = express.Router();
 router.post('/registration', createAccountLimiter, controllerUsers.reg);
 router.post('/login', controllerUsers.login);
 router.post('/logout', guard, controllerUsers.logout);
+router.get('/current', guard, controllerUsers.current);
+router.get('/verify/:token', controllerUsers.verify);
 
 router.patch(
   '/avatars',

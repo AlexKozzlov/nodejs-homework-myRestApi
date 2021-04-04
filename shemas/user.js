@@ -6,16 +6,20 @@ const { Schema } = mongoose;
 const gravatar = require('gravatar');
 
 const userSchema = new Schema({
+  name: {
+    type: String,
+    default: 'Guest',
+  },
   email: {
     type: String,
     unique: true,
-    require: [true, 'Email mast be requaired'],
+    required: [true, 'Email mast be requaired'],
     match: [
       /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
       'Please fill a valid email address',
     ],
   },
-  password: { type: String, require: [true, 'Password mast be requaired'] },
+  password: { type: String, required: [true, 'Password mast be requaired'] },
   avatarURL: {
     type: String,
     default: function () {
@@ -34,6 +38,14 @@ const userSchema = new Schema({
   token: {
     type: String,
     default: null,
+  },
+  verify: {
+    type: Boolean,
+    default: false,
+  },
+  verifyToken: {
+    type: String,
+    required: [true, 'Verify token is required'],
   },
 });
 
